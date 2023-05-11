@@ -1,0 +1,93 @@
+<Project>
+  <PropertyGroup>
+    <RepositoryRootDir>$(MSBuildThisFileDirectory)</RepositoryRootDir>
+    <RepositoryUrl>https://github.com/aranasoft/ApplicationInsights.AspNetCore.IHostEnvironment.git</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <SourceRoot Include="$(MSBuildThisFileDirectory)/"/>
+  </ItemGroup>
+
+  <PropertyGroup>
+    <IsTestProject>false</IsTestProject>
+    <IsTestProject Condition="$(MSBuildProjectName.EndsWith('Tests'))">true</IsTestProject>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <Authors>Arana Software</Authors>
+    <Company>Arana Software</Company>
+    <Product>Application Insights for ASP.NET Core Web Applications under IHostEnvironment</Product>
+    <PackageTags>Arana IHostEnvironment Analytics Azure ApplicationInsights Telemetry Monitoring SDK AspNetCore</PackageTags>
+
+    <Copyright>© Arana Software. © Microsoft. All rights reserved.</Copyright>
+
+    <PackageProjectUrl>https://github.com/aranasoft/ApplicationInsights.AspNetCore.IHostEnvironment/</PackageProjectUrl>
+
+    <PackageLicenseExpression>BSD-3-Clause</PackageLicenseExpression>
+    <PackageLicenseFullPath>$(MSBuildThisFileDirectory)LICENSE</PackageLicenseFullPath>
+    <PackageProjectUrl>https://github.com/aranasoft/ApplicationInsights.AspNetCore.IHostEnvironment/</PackageProjectUrl>
+    <PackageIcon>package-icon.png</PackageIcon>
+    <PackageIconFullPath>$(MSBuildThisFileDirectory)package-icon.png</PackageIconFullPath>
+
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="$(PackageIconFullPath)" Pack="true" PackagePath="\"/>
+    <None Include="$(PackageLicenseFullPath)" Pack="true" PackagePath="\"/>
+  </ItemGroup>
+
+  <PropertyGroup>
+    <PackageOutputFullPath>$(MSBuildThisFileDirectory)artifacts</PackageOutputFullPath>
+    <PackageOutputPath>$(PackageOutputFullPath)</PackageOutputPath>
+  </PropertyGroup>
+
+  <PropertyGroup Condition=" '$(IsTestProject)' == 'true' ">
+    <IsPackable>false</IsPackable>
+  </PropertyGroup>
+
+  <ItemGroup Condition=" '$(IsTestProject)' == 'false' ">
+    <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleTo">
+      <_Parameter1>$(MSBuildProjectName).Test</_Parameter1>
+    </AssemblyAttribute>
+  </ItemGroup>
+
+  <PropertyGroup Condition=" '$(IsTestProject)' == 'false' ">
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb</AllowedOutputExtensionsInPackageBuildOutputFolder>
+  </PropertyGroup>
+
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>true</Optimize>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <!--
+      Building MSIs from dev build requires file versions to be increasing.
+      Use the current date in non-official builds. Note that this reduces the deterministic properties of the build
+      and should only be enabled when it's necessary to test-install the MSIs produced by the build.
+    -->
+    <_BuildNumber>$(BuildNumber)</_BuildNumber>
+    <_BuildNumber Condition="'$(BuildNumber)' == ''">$([System.DateTime]::Now.ToString(yyyyMMdd)).1</_BuildNumber>
+
+    <!--
+      OfficialBuildId is assumed to have format "20yymmdd.r" (the assumption is checked later in a target).
+    -->
+    <_BuildNumberYY>$(_BuildNumber.Substring(2, 2))</_BuildNumberYY>
+    <_BuildNumberMM>$(_BuildNumber.Substring(4, 2))</_BuildNumberMM>
+    <_BuildNumberDD>$(_BuildNumber.Substring(6, 2))</_BuildNumberDD>
+    <_BuildNumberR>$(_BuildNumber.Substring(9))</_BuildNumberR>
+
+    <!-- SHORT_DATE := yy * 372 + mm * 31 + dd -->
+    <VersionSuffixDateStamp>$([MSBuild]::Add($([MSBuild]::Add($([MSBuild]::Multiply($(_BuildNumberYY), 372)), $([MSBuild]::Multiply($(_BuildNumberMM), 31)))), $(_BuildNumberDD)))</VersionSuffixDateStamp>
+
+    <!-- REVISION := r -->
+    <VersionSuffixBuildOfTheDay>$(_BuildNumberR)</VersionSuffixBuildOfTheDay>
+    <VersionSuffixBuildOfTheDayPadded>$(VersionSuffixBuildOfTheDay.PadLeft(2, $([System.Convert]::ToChar(`0`))))</VersionSuffixBuildOfTheDayPadded>
+
+    <!-- PATCH_NUMBER := (SHORT_DATE - VersionBaseShortDate) * 100 + r -->
+    <_PatchNumber>$([MSBuild]::Add($([MSBuild]::Multiply($([MSBuild]::Subtract($(VersionSuffixDateStamp), $([MSBuild]::ValueOrDefault($(VersionBaseShortDate), 8120)))), 30)), $(_BuildNumberR)))</_PatchNumber>
+  </PropertyGroup>
+</Project>
