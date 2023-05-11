@@ -23,7 +23,7 @@ steps:
       }
       else
       {
-        if ($env:BUILD_SOURCEBRANCHNAME -ne "master"){
+        if ($env:BUILD_SOURCEBRANCHNAME -ne "main"){
           Write-Output ("##vso[build.updatebuildnumber]" + $env:BUILD_BUILDNUMBER+"-alpha")
         }
       }
