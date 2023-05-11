@@ -18,7 +18,7 @@
     <Authors>Arana Software</Authors>
     <Company>Arana Software</Company>
     <Product>Application Insights for ASP.NET Core Web Applications under IHostEnvironment</Product>
-    <PackageTags>Arana IHostEnvironment Analytics Azure ApplicationInsights Telemetry Monitoring SDK AspNetCore</PackageTags>
+    <PackageTags>Arana IHostEnvironment Analytics Azure ApplicationInsights Telemetry Monitoring SDK</PackageTags>
 
     <Copyright>© Arana Software. © Microsoft. All rights reserved.</Copyright>
 

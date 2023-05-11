@@ -1,16 +1,17 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
-    <PropertyGroup>
-        <TargetFrameworks>netcoreapp3.1;net6.0</TargetFrameworks>
-        <AssemblyName>Aranasoft.ApplicationInsights.AspNetCore.IHostEnvironment</AssemblyName>
-        <RootNamespace>Aranasoft.ApplicationInsights.AspNetCore</RootNamespace>
-        <VersionPrefix>2.0</VersionPrefix>
-      <PackageTags>$(PackageTags)aspnetcore;</PackageTags>
-    </PropertyGroup>
+  <PropertyGroup>
+    <TargetFrameworks>netcoreapp3.1;net6.0</TargetFrameworks>
+    <AssemblyName>Aranasoft.ApplicationInsights.AspNetCore.IHostEnvironment</AssemblyName>
+    <RootNamespace>Aranasoft.ApplicationInsights.AspNetCore</RootNamespace>
+    <VersionPrefix>2.0</VersionPrefix>
+    <Description>Application Insights for ASP.NET Core web applications using IHostEnvironment.</Description>
+    <PackageTags>$(PackageTags) aspnetcore</PackageTags>
+  </PropertyGroup>
 
-    <ItemGroup>
-        <FrameworkReference Include="Microsoft.AspNetCore.App" />
-        <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="[2.21.0,)" />
-    </ItemGroup>
+  <ItemGroup>
+    <FrameworkReference Include="Microsoft.AspNetCore.App"/>
+    <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="[2.21.0,)"/>
+  </ItemGroup>
 
 </Project>
