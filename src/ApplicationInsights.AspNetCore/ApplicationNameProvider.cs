@@ -21,7 +21,7 @@ namespace Aranasoft.ApplicationInsights.AspNetCore
     {
         public ApplicationNameProvider()
         {
-            this.Name = GetApplicationName();
+            Name = GetApplicationName();
         }
 
         public string Name { get; private set; }

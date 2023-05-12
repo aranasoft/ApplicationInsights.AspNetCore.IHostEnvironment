@@ -38,7 +38,6 @@ namespace Aranasoft.ApplicationInsights.AspNetCore
         }
         #endregion
 
-        #region Events
         // Define an instance method for each event you want to record and apply an [Event] attribute to it.
         // The method name is the name of the event.
         // Pass any parameters you want to record with the event (only primitive integer types, DateTime, Guid & string are allowed).
@@ -57,25 +56,7 @@ namespace Aranasoft.ApplicationInsights.AspNetCore
             Level = EventLevel.Error)]
         public void LogError(string errorMessage, string appDomainName = "Incorrect")
         {
-            this.WriteEvent(14, errorMessage, this.applicationNameProvider.Name);
+            WriteEvent(14, errorMessage, applicationNameProvider.Name);
         }
-
-        #endregion
-
-        #region Private methods
-#if UNSAFE
-            private int SizeInBytes(string s)
-            {
-                if (s == null)
-                {
-                    return 0;
-                }
-                else
-                {
-                    return (s.Length + 1) * sizeof(char);
-                }
-            }
-#endif
-        #endregion
     }
 }

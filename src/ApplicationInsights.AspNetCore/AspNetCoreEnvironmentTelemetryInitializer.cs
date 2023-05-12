@@ -37,13 +37,13 @@ namespace Aranasoft.ApplicationInsights.AspNetCore
         /// <inheritdoc />
         public void Initialize(ITelemetry telemetry)
         {
-            if (this.environment != null)
+            if (environment != null)
             {
                 if (telemetry is ISupportProperties telProperties && !telProperties.Properties.ContainsKey(AspNetCoreEnvironmentPropertyName))
                 {
                     telProperties.Properties.Add(
                         AspNetCoreEnvironmentPropertyName,
-                        this.environment.EnvironmentName);
+                        environment.EnvironmentName);
                 }
             }
         }
