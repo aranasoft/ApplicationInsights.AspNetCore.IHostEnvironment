@@ -14,7 +14,7 @@ namespace Aranasoft.ApplicationInsights.AspNetCore
     /// https://github.com/microsoft/ApplicationInsights-dotnet/issues/1869
     /// https://github.com/microsoft/ApplicationInsights-dotnet/issues/2439
     /// </remarks>
-    [EventSource(Name = "YourFare-OrderConnect-ApplicationInsights")]
+    [EventSource(Name = "Microsoft-ApplicationInsights-AspNetCore")]
     internal sealed class AppInsightsEventSource : EventSource
     {
         public static readonly AppInsightsEventSource Current = new AppInsightsEventSource();
